@@ -18,6 +18,7 @@ public class sMeteor : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.tag == "bullet"){
+            Debug.Log("just a github test teehee");
             Destroy(other.gameObject);
             Destroy(gameObject);
         }
