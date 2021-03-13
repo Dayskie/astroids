@@ -19,7 +19,6 @@ public class playerOne : MonoBehaviour
 
     void Start()
     {
-        lives = 0;
         rb = GetComponent<Rigidbody2D>();
     }
     
