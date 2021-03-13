@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -8,19 +9,24 @@ public class gameManager : MonoBehaviour
     public GameObject player;
     playerOne playerScript;
     public Text pLives;
+    public Text pDead;
+    public GameObject pRetry;
     [SerializeField] Camera cam;
 
     float horizontalMin;
     float horizontalMax;
-
     float verticalMin;
     float verticalMax;
-
     float boundsOffset = 1f;
 
+    bool showMenu = false;
+
     private void Start() {
+        pDead.enabled = false;
+        pRetry.SetActive(false);
+            
         playerScript = player.GetComponent<playerOne>();
-        pLives.text = "lives: " + playerScript.lives;
+
         //screen width
         float halfHeight = cam.orthographicSize;
         float halfWidtth = cam.aspect * halfHeight;
@@ -36,7 +42,7 @@ public class gameManager : MonoBehaviour
     void Update(){
         ManagePlayerPos(); //is putting the code in a sperate method stupid? who knows!
         
-
+        pLives.text = "lives: " + playerScript.lives;
     }
 
     // makes sure the player cant get lost going outside the bounds lul
@@ -47,9 +53,9 @@ public class gameManager : MonoBehaviour
             
 
             if(playerposx >= horizontalMax + boundsOffset){
-                player.transform.position = new Vector2(horizontalMin - boundsOffset, player.transform.position.y);
+                player.transform.position = new Vector2(horizontalMin - boundsOffset, playerposy);
             } else if(playerposx <= horizontalMin - boundsOffset){
-                player.transform.position = new Vector2(horizontalMax + boundsOffset, player.transform.position.y);
+                player.transform.position = new Vector2(horizontalMax + boundsOffset, playerposy);
             }
 
             if(playerposy >= verticalMax + boundsOffset){
@@ -59,12 +65,24 @@ public class gameManager : MonoBehaviour
             }
             
         } else{
-            Debug.Log("Player not found!"); // should really only happen when the gameover screen shows cause i'll just delete the player unless thats bad
+            if(showMenu) return;
+            PlayerDeath();
         }
     }
 
     void SpawnMeteor(){
         //brain too duumb right now but somehow make more metors spawn and spawn faster and faster???
+    }
+
+    void PlayerDeath(){
+        showMenu = true;
+        pDead.enabled = true;
+        pRetry.SetActive(true);
+
+    }
+
+    public void RestartLevel(){
+        SceneManager.LoadScene(0);
     }
 
 
