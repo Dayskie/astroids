@@ -13,7 +13,7 @@ public class Meteor : MonoBehaviour
             switch (mSize) {
                 case 3:
                     spawnMeteor(MeteorMedium);
-                    destroyMeteor(other.gameObject);
+                    destroyMeteor(other.gameObject); //other gameobject is the bullet
                     break;
                 case 2:
                     spawnMeteor(MeteorSmall);
