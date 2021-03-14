@@ -13,11 +13,16 @@ public class gameManager : MonoBehaviour
     public GameObject pRetry;
     [SerializeField] Camera cam;
 
+    public GameObject meteor; 
+
     float horizontalMin;
     float horizontalMax;
     float verticalMin;
     float verticalMax;
     float boundsOffset = 1f;
+
+    float spawnRate = 1f;
+    float timeStamp; 
 
     bool showMenu = false;
 
@@ -40,6 +45,12 @@ public class gameManager : MonoBehaviour
 
     }
     void Update(){
+         if(Time.time >= timeStamp){
+            SpawnMeteor();
+            timeStamp = Time.time + spawnRate;
+        }
+
+
         ManagePlayerPos(); //is putting the code in a sperate method stupid? who knows!
         
         pLives.text = "lives: " + playerScript.lives;
@@ -71,8 +82,8 @@ public class gameManager : MonoBehaviour
     }
 
     void SpawnMeteor(){
-        //brain too duumb right now but somehow make more metors spawn and spawn faster and faster???
     }
+
 
     void PlayerDeath(){
         showMenu = true;

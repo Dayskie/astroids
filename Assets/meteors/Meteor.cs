@@ -4,25 +4,34 @@ using UnityEngine;
 
 public class Meteor : MonoBehaviour
 {
+    public SpriteRenderer sprite;
+    public Sprite mBig, mMedium, mSmall;
+    public BoxCollider2D box;
     public int mSize; 
-    // 3 = large  2 = medium  1 = small
-    public GameObject MeteorMedium;
-    public GameObject MeteorSmall;
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(other.tag == "bullet"){
-            switch (mSize) {
-                case 3:
-                    spawnMeteor(MeteorMedium);
-                    destroyMeteor(other.gameObject); //other gameobject is the bullet
-                    break;
-                case 2:
-                    spawnMeteor(MeteorSmall);
-                    destroyMeteor(other.gameObject);
-                    break;
-                case 1:
-                    destroyMeteor(other.gameObject);
-                    break;
-            }
+
+    void Start(){
+        mSize = Random.Range(1,4);
+        createMeteor();
+
+    }
+
+    void createMeteor(){
+        switch(mSize){
+            case 1: // small
+                sprite.sprite = mSmall;
+                box.size = new Vector2(1,1);
+                transform.localScale = new Vector3(1,1,1);
+                break;
+            case 2:
+                sprite.sprite = mMedium;
+                box.size = new Vector2(2,2);
+                transform.localScale = new Vector3(1,1,1);
+                break;
+            case 3:
+                sprite.sprite = mBig;
+                box.size = new Vector2(2,2);
+                transform.localScale = new Vector3(2,2,1);
+                break;
         }
     }
 

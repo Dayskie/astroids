@@ -59,6 +59,7 @@ public class playerOne : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.tag == "meteor"){
             collidingMeteor = true;
+            
         }
     }
 
